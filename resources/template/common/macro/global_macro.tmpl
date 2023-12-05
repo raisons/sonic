@@ -16,14 +16,16 @@
 
 {{define "global.sonic_comment"}}
     {{if or (eq .type "journal") (not .target.DisallowComment)}}
+        <h3 style="padding-top: 30px">评论</h3>
         <div id="comment"></div>
         <script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.js"></script>
-        <script src="{{.options.comment_internal_plugin_js}}"></script>
+        <script src="{{or .options.comment_internal_plugin_js "https://cdn.jsdelivr.net/npm/sonic-comment@1.1.0/dist/sonic-comment.iife.js"}}"></script>
         <script>
             SonicComment.init("#comment", {
                 target: "{{.type}}s",
                 targetId: {{.target.ID}},
-                colorScheme: "light"
+                colorScheme: "light",
+                emoji: "https://cdn.jsdelivr.net/npm/sonic-comment@1.1.0/dist/"
             });
         </script>
     {{end}}
